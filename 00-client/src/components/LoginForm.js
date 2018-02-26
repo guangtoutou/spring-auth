@@ -25,15 +25,22 @@ class LoginForm extends React.Component {
 		this.setState({ errors });
 		var email = this.state.email;
 		var password = this.state.password;
+		
 		if (Object.keys(errors).length === 0) {
-			setTimeout(this.setState({ 'loading': true }), 3000);
+			setTimeout(this.setState({ 'loading': true }), 2000);
+			
+			var token;
 			axios
-			.request({url:'/api/home', auth:{username: 'user', password: 'password'}})
-			.then(response => {console.log(response);this.setState({'loading':false})});
+			.post('/api/auth',{username:'user',password:'password'})
+			.then(response => {
+				console.log(response);
+				token = response.headers.authorization;
+				this.setState({'loading':false});
+			});
 
 			setTimeout(()=>axios
-			.request({url:'/api/home', withCredentials:true})
-			.then(response => {console.log(response)}),20000);
+			.request({url:'/api/home',headers:{'authorization':token}})
+			.then(response => {console.log(response)}),3000);
 		}
 	}
 

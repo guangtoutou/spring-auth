@@ -11,4 +11,9 @@ public class HomeController {
 		return "home";
 	}
 
+	@RequestMapping("/api/auth")
+	public String auth(){
+		return "success";
+	}
+
 }

@@ -1,7 +1,8 @@
-package com.springauth.session;
+package com.springauth.session.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -10,10 +11,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+@Profile("session")
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter{
 
+	@Profile("session")
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -23,6 +26,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 				.and()
 				.httpBasic();
 	}
+
+
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
